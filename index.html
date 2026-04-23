@@ -5,17 +5,73 @@
     <link rel="stylesheet" href="style.css">
     <script src="app.js" defer></script>
     <script></script>
-    <title>Document</title>
+    <title>Tomatinho</title>
 </head>
 <body>
+    <header class="header">
+        <div class="logo">MyLogo</div>
+
+        <nav class="nav" id="nav-menu">
+            <a href="#">Home</a>
+            <a href="#">About</a>
+            <a href="#">Services</a>
+            <a href="#">Contact</a>
+        </nav>
+
+        <div class="burger" id="burger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </header>
     <section class="hero">
         <canvas id="glCanvas"></canvas>
         <img id="bg" src="imgs/background.png" hidden>
         <div class="hero-overlay"></div>
 
         <div class="hero-content">
-            <img src="imgs/test.png" class="logo">
+            <h1>Hi welcome to my page</h1>
         </div>
     </section>
+    <section class="about">
+        <div class="about-container">
+            
+            <div class="about-image">
+            <img src="imgs/profile.png" alt="Profile">
+            </div>
+
+            <div class="about-text">
+            <h2>About Me</h2>
+            <p>
+                Hi, I’m Tomatinho 👋  
+                I’m a developer passionate about creating interactive and visually engaging experiences on the web.
+            </p>
+
+            <p>
+                I enjoy working with graphics, game development, and modern web technologies. 
+                My goal is to build projects that are not only functional but also feel smooth and alive.
+            </p>
+
+            <a href="#" class="about-btn">Contact Me</a>
+            </div>
+
+        </div>
+    </section>
+    <section class="skills">
+        <h2>Technologies I Use</h2>
+        <div class="logos">
+            <img src="imgs/htmlcssjs.png" class="logo-item">
+            <img src="imgs/css.png" class="logo-item">
+            <img src="imgs/js.png" class="logo-item">
+            <img src="imgs/unity.png" class="logo-item">
+            <img src="imgs/csharp.png" class="logo-item">
+        </div>
+    </section>
+    <footer class="footer">
+        <div class="footer-content">
+            <h2>Tomatinho</h2>
+            <p>© 2026 All rights reserved</p>
+        </div>
+    </footer>
 </body>
 </html>
