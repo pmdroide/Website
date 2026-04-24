@@ -51,10 +51,12 @@ const fragmentShaderSource = `
       float luma = dot(tex.rgb, vec3(0.299, 0.587, 0.114));
       
       vec3 darkBlue = vec3(0.02, 0.03, 0.11);
-      vec3 deepRed = vec3(0.62, 0.08, 0.12);
+      vec3 lightBlue = vec3(0.4, 0.6, 1.0);
+      vec3 blue = vec3(0.1, 0.2, 0.8);
+      vec3 deepBlue = vec3(0.0, 0.1, 0.5);
       
       // Mapeia o Luma para o gradiente entre azul escuro e vermelho profundo
-      vec3 finalTone = mix(darkBlue, deepRed, smoothstep(0.1, 0.95, luma));
+      vec3 finalTone = mix(deepBlue, lightBlue, smoothstep(0.1, 0.95, luma));
 
       // 6. Ajuste de Vinheta (Opcional, para dar profundidade)
       float distFromCenter = distance(vUv, vec2(0.5));
