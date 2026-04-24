@@ -179,7 +179,24 @@ const burger = document.getElementById('burger');
     burger.classList.toggle('active');
 });
 
+// Header and hero scroll effect
+const header = document.querySelector('.header');
+const hero = document.querySelector('.hero');
+
+window.addEventListener('scroll', () => {
+  const scrollY = window.scrollY;
+
+  if (scrollY > 80) {
+    header.classList.add('scrolled');
+    hero.classList.add('shrink');
+  } else {
+    header.classList.remove('scrolled');
+    hero.classList.remove('shrink');
+  }
+});
+
 // Animations
+// Icons parallax effect
 const logos = document.querySelectorAll('.logo-item');
 
 const observer = new IntersectionObserver((entries) => {
