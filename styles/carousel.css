@@ -1,5 +1,4 @@
 @layer base, demo;
-@import url(https://fonts.bunny.net/css?family=abel:400);
 
 @layer demo {
 	.carousel {
@@ -158,5 +157,38 @@
 		display: grid;
 		place-items: center;
 		gap: 2rem;
+	}
+
+	section.projects h1 {
+		font-size: 4rem;
+
+		/* Color Gradient */
+		background: linear-gradient(
+			to right, 
+			#0059ff 0%,    
+			#6294ff 25%,   
+			#0059ff 50%,   
+			#0059ff 100%
+		);
+		
+		/* Gradient stays inside the letters */
+		background-size: 200% auto;
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-clip: text;
+		text-fill-color: transparent;
+
+		/* General font style */
+		font-family: sans-serif;
+		font-size: 3rem;
+		font-weight: bold;
+
+		/* Animation */
+		animation: shine 4s linear infinite;
+	}
+
+	section.projects h2 {
+		font-size: 2rem;
+		text-align: center;
 	}
 }

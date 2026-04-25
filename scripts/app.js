@@ -22,47 +22,48 @@ const fragmentShaderSource = `
   precision highp float;
 
   varying vec2 vUv;
-  uniform vec2 u_mouse;      // Mouse de -0.5 a 0.5
+  uniform vec2 u_mouse;      
   uniform sampler2D u_mainScene;
+  uniform vec2 u_resolution; // Importante para manter a proporção correta
 
   void main() {
-      // 1. Configuração das Fatias (Slices)
-      float numSlices = 7.0; 
-      float currentSlice = floor(vUv.x * numSlices);
-      float centeredSlice = currentSlice - floor(numSlices * 0.5);
+      // 1. Ajuste de Proporção para Esticar na Vertical
+      vec2 center = vec2(0.5, 0.5);
+      vec2 centeredUv = vUv - center;
+
+      // Criamos uma variável para o cálculo da distância "deformada"
+      // Ao multiplicar o Y por um fator (ex: 0.6), o círculo vira uma elipse
+      // que se expande para cima e para baixo.
+      vec2 stretchedUv = centeredUv;
+      stretchedUv.y *= 0.4; // Menor que 1.0 = Estica na vertical / Maior que 1.0 = Achata
       
-      // 2. Movimento (Horizontal Shatter + Vertical Tilt)
-      // O movimento horizontal depende da fatia (mais longe do centro = mais shift)
-      float horizMovement = abs(centeredSlice) * 0.08;
-      float xOffset = u_mouse.x * horizMovement;
+      // 2. Criar a "Escada" de Círculos Elípticos
+      float dist = length(stretchedUv); 
+      float numCuts = 5.0; // Diminuir o número de cortes faz os anéis parecerem maiores
+      float ringId = floor(dist * numCuts);
       
-      // O movimento vertical é uniforme (efeito de inclinação da câmera)
-      float yOffset = u_mouse.y * 0.04;
+      // 3. Cálculo de Movimento
+      // Multiplicamos o ringId para garantir que o movimento acompanhe a escala
+      float movementIntensity = 0.02 + (ringId * 0.04);
+      vec2 ringOffset = u_mouse * movementIntensity;
 
-      // 3. Distorção de Coordenadas
-      vec2 distortedUv = vec2(vUv.x + xOffset, vUv.y + yOffset);
+      // 4. Zoom de Segurança
+      // Como os anéis estão maiores, talvez você precise de mais zoom
+      centeredUv *= 0.8; 
 
-      // 4. Sample da Textura Original
-      // Usamos clamp para evitar repetição nas bordas ao mover
-      vec4 tex = texture2D(u_mainScene, clamp(distortedUv, 0.0, 1.0));
+      // 5. Sample da Textura
+      vec2 finalUv = (centeredUv + center) + ringOffset;
+      vec4 tex = texture2D(u_mainScene, clamp(finalUv, 0.0, 1.0));
 
-      // 5. Seu Esquema de Cores Customizado
-      // Calcula a luminosidade (preto e branco) da imagem original
+      // 6. Cores e Vinheta
       float luma = dot(tex.rgb, vec3(0.299, 0.587, 0.114));
-      
       vec3 darkBlue = vec3(0.02, 0.03, 0.11);
       vec3 lightBlue = vec3(0.4, 0.6, 1.0);
-      vec3 blue = vec3(0.1, 0.2, 0.8);
-      vec3 deepBlue = vec3(0.0, 0.1, 0.5);
-      
-      // Mapeia o Luma para o gradiente entre azul escuro e vermelho profundo
-      vec3 finalTone = mix(deepBlue, lightBlue, smoothstep(0.1, 0.95, luma));
+      vec3 finalTone = mix(darkBlue, lightBlue, smoothstep(0.1, 0.95, luma));
 
-      // 6. Ajuste de Vinheta (Opcional, para dar profundidade)
-      float distFromCenter = distance(vUv, vec2(0.5));
-      float vignette = smoothstep(0.8, 0.4, distFromCenter);
+      // Ajustamos a vinheta para também ser elíptica acompanhando os anéis
+      float vignette = smoothstep(0.8, 0.2, dist);
       
-      // Aplicamos o tom final com um leve efeito de vinheta
       gl_FragColor = vec4(finalTone * (vignette + 0.2), 1.0);
   }
 `;
@@ -122,22 +123,19 @@ const textureLoc = gl.getUniformLocation(program, "u_texture");
 const timeLoc = gl.getUniformLocation(program, "u_time");
 const resolutionLoc = gl.getUniformLocation(program, "u_resolution");
 const mouseLoc = gl.getUniformLocation(program, "u_mouse");
-const mouse = { x: 0.5, y: 0.5 };
+const targetMouse = { x: 0.5, y: 0.5 };
+const currentMouse = { x: 0.5, y: 0.5 };
 
 window.addEventListener("mousemove", (event) => {
   const rect = canvas.getBoundingClientRect();
-  mouse.x = (event.clientX - rect.left) / rect.width;
-  mouse.y = 1 - (event.clientY - rect.top) / rect.height;
 
-  if (mouse.x < 0 || mouse.x > 1 || mouse.y < 0 || mouse.y > 1) {
-    mouse.x = 0.5;
-    mouse.y = 0.5;
-  }
+  targetMouse.x = (event.clientX - rect.left) / rect.width;
+  targetMouse.y = 1 - (event.clientY - rect.top) / rect.height;
 });
 
 window.addEventListener("mouseleave", () => {
-  mouse.x = 0.5;
-  mouse.y = 0.5;
+  targetMouse.x = 0.5;
+  targetMouse.y = 0.5;
 });
 
 function setupTextureAndRender() {
@@ -155,9 +153,17 @@ function setupTextureAndRender() {
 }
 
 function render(time = 0) {
+  const lerpSpeed = 0.04; 
+
+  // LERP (smooth follow)
+  currentMouse.x += (targetMouse.x - currentMouse.x) * lerpSpeed;
+  currentMouse.y += (targetMouse.y - currentMouse.y) * lerpSpeed;
+
   gl.uniform1f(timeLoc, time * 0.001);
   gl.uniform2f(resolutionLoc, canvas.width, canvas.height);
-  gl.uniform2f(mouseLoc, mouse.x, mouse.y);
+
+  // use SMOOTHED mouse
+  gl.uniform2f(mouseLoc, currentMouse.x, currentMouse.y);
 
   gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
   requestAnimationFrame(render);
@@ -177,6 +183,17 @@ const burger = document.getElementById('burger');
   burger.addEventListener('click', () => {
     nav.classList.toggle('active');
     burger.classList.toggle('active');
+
+    document.body.classList.toggle('menu-open');
+});
+
+// Close when clicking link
+document.querySelectorAll('.nav a').forEach(link => {
+  link.addEventListener('click', () => {
+    nav.classList.remove('active');
+    burger.classList.remove('active');
+    document.body.classList.remove('menu-open');
+  });
 });
 
 // Header and hero scroll effect
@@ -189,9 +206,11 @@ window.addEventListener('scroll', () => {
   if (scrollY > 80) {
     header.classList.add('scrolled');
     hero.classList.add('shrink');
+    nav.classList.add('scrolled');
   } else {
     header.classList.remove('scrolled');
     hero.classList.remove('shrink');
+    nav.classList.remove('scrolled');
   }
 });
 
