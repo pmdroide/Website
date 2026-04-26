@@ -2,7 +2,7 @@
 
 @layer demo {
 	.carousel {
-		--items: 6;
+		--items: 4; /* IMPORTANT CHANGE THIS WHEN ADDING OR REMOVING ARTICLES */
 		--carousel-duration: 40s;
 		@media (width > 600px) {
 			--carousel-duration: 30s;

@@ -1,6 +1,13 @@
 * {
+  font-family: "Open Sans", sans-serif;
+}
+
+html, body {
+  background-color: #1c2230; 
+  
+  /* This prevents the "white flash" on some browsers before the CSS loads */
   margin: 0;
-  font-family: "Poppins", sans-serif;
+  padding: 0;
 }
 
 .hero {
@@ -50,7 +57,7 @@
 
 /* Header */
 .logo {
-  max-width: 60px;
+  max-width: 50px;
 }
 
 .header {
@@ -58,18 +65,23 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 40px;
+  padding: 15px 360px;
   background: transparent;
   color: white;
   z-index: 1000;
   transition: 0.3s ease;
   width: 100%;
+  height: 70px;
 }
 
 .header.scrolled {
   background: #1c2230;
   backdrop-filter: blur(10px);
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+  box-shadow: 
+    0 10px 10px #1c2230,
+    0 20px 20px rgba(19, 23, 32, 0.7),
+    0 40px 40px rgba(19, 23, 32, 0.4),
+    0 70px 60px rgba(19, 23, 32, 0.2);
 }
 
 .nav {
@@ -187,6 +199,12 @@
 
   .header {
     position: absolute;
+    padding: 15px 40px;
+  }
+
+  .footer::before {
+    --glow-spread2: 50%;
+    --glow-spread3: 100%; 
   }
 }
 
@@ -232,6 +250,7 @@ body.menu-open {
 }
 
 .about-text h2 {
+    padding-bottom: 20px;
     /* Color Gradient */
     background: linear-gradient(
         to right, 
@@ -249,7 +268,6 @@ body.menu-open {
     text-fill-color: transparent;
 
     /* General font style */
-    font-family: sans-serif;
     font-size: 3rem;
     font-weight: bold;
 
@@ -324,7 +342,6 @@ body.menu-open {
     text-fill-color: transparent;
 
     /* General font style */
-    font-family: sans-serif;
     font-size: 3rem;
     font-weight: bold;
 
@@ -364,6 +381,10 @@ body.menu-open {
 
 /* Footer */
 .footer {
+  --glow-spread1: 0%; /*glow spread is on parent to prevent being ignored by browser */
+  --glow-spread2: 20%;
+  --glow-spread3: 30%;
+
   position: relative;
   padding: 80px 20px;
   color: white;
@@ -382,9 +403,9 @@ body.menu-open {
 
   background: radial-gradient(
     circle at bottom,
-    rgba(47, 47, 228, 0.35) 0%,   /* bright center */
-    rgba(26, 25, 83, 0.15) 20%,
-    rgba(8, 6, 22, 0) 30%           /* fade out */
+    rgba(47, 47, 228, 0.35) var(--glow-spread1),   /* bright center */
+    rgba(26, 25, 83, 0.15) var(--glow-spread2),
+    rgba(8, 6, 22, 0) var(--glow-spread3)           /* fade out */
   );
 
   pointer-events: none;
@@ -423,10 +444,6 @@ body.menu-open {
   align-items: center;
   justify-content: center;
   text-decoration: none;
-
-  background: rgba(255,255,255,0.05);
-  backdrop-filter: blur(5px);
-
   transition: 0.3s;
 }
 
@@ -440,7 +457,7 @@ body.menu-open {
 /* Hover glow */
 .social:hover {
   transform: translateY(-5px) scale(1.1);
-  box-shadow: 0 0 15px rgba(47,47,228,0.6);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
 }
 
 /* Keyframes */
