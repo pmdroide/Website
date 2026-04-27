@@ -1,0 +1,165 @@
+/* Section 1 (About) */
+.about {
+  padding: 100px 10%;
+  background: linear-gradient(
+        to bottom, 
+        rgb(14, 16, 32) 0%,
+        rgb(28, 35, 68) 10%,    /* Cor mais brilhante no topo */
+        #1c2230 100%   /* Sua cor padrão em baixo */
+    );
+  color: white;
+}
+
+/* Layout */
+.about-container {
+  display: flex;
+  align-items: center;
+  gap: 60px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Image */
+.about-image img {
+  width: 300px;
+  border-radius: 20px;
+  object-fit: cover;
+
+  /* subtle glow */
+  box-shadow: 0 0 40px rgba(47, 47, 228, 0.4);
+}
+
+/* Text */
+.about-text {
+  max-width: 600px;
+}
+
+.about-text h2 {
+    padding-bottom: 20px;
+    /* Color Gradient */
+    background: linear-gradient(
+        to right, 
+        #0059ff 0%,    
+        #6294ff 25%,   
+        #0059ff 50%,   
+        #0059ff 100%
+    );
+    
+    /* Gradient stays inside the letters */
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+
+    /* General font style */
+    font-size: 3rem;
+    font-weight: bold;
+
+    /* Animation */
+    animation: shine 4s linear infinite;
+}
+
+.about-text p {
+  margin-bottom: 15px;
+  line-height: 1.6;
+  opacity: 0.85;
+}
+
+/* Button */
+.about-btn {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 10px 20px;
+  border-radius: 25px;
+  text-decoration: none;
+  color: white;
+  background: linear-gradient(45deg, #0059ff, #5087ff);
+  transition: 0.3s;
+}
+
+.about-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 20px rgba(255, 255, 255, 0.5);
+}
+
+.about-btn i {
+  padding-right: 10px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .about-container {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .about-image img {
+    width: 220px;
+  }
+}
+
+/* Section 2 (Technologies) */
+.skills {
+  padding: 120px 10%;
+  background: #1c2230;
+  color: white;
+  text-align: center;
+  overflow: hidden;
+  padding-bottom: 12rem;
+}
+
+.skills h1 {
+    /* Color Gradient */
+    background: linear-gradient(
+        to right, 
+        #0059ff 0%,    
+        #6294ff 25%,   
+        #0059ff 50%,   
+        #0059ff 100%
+    );
+    
+    /* Gradient stays inside the letters */
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+
+    /* General font style */
+    font-size: 3rem;
+    font-weight: bold;
+
+    /* Animation */
+    animation: shine 4s linear infinite;
+}
+
+.logos {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 50px;
+  margin-top: 60px;
+}
+
+/* Base state (hidden) */
+.logo-item {
+  width: 100px;
+  opacity: 0;
+  transform: translateY(80px) scale(0.8);
+  transition: all 0.6s ease;
+
+  /* optional glow */
+  filter: drop-shadow(0 0 10px rgba(255,255,255,0.3));
+}
+
+/* When visible (pop effect) */
+.logo-item.show {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.logo-item:hover {
+  transform: scale(1.2);
+  filter: drop-shadow(0 0 20px rgba(47,47,228,1));
+}

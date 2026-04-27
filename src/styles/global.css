@@ -1,0 +1,18 @@
+* {
+  font-family: "Open Sans", sans-serif;
+}
+
+html, body {
+  background-color: #1c2230; 
+  
+  /* This prevents the "white flash" on some browsers before the CSS loads */
+  margin: 0;
+  padding: 0;
+}
+
+/* Keyframes */
+@keyframes shine {
+    to {
+        background-position: 200% center;
+    }
+}

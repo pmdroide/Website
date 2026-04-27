@@ -1,0 +1,79 @@
+.footer {
+  --glow-spread1: 0%; /*glow spread is on parent to prevent being ignored by browser */
+  --glow-spread2: 20%;
+  --glow-spread3: 30%;
+
+  position: relative;
+  padding: 80px 20px;
+  color: white;
+  text-align: center;
+  overflow: hidden;
+
+  /* Base dark color */
+  background: #1c2230;
+}
+
+/* Light glow effect */
+.footer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background: radial-gradient(
+    circle at bottom,
+    rgba(47, 47, 228, 0.35) var(--glow-spread1),   /* bright center */
+    rgba(26, 25, 83, 0.15) var(--glow-spread2),
+    rgba(8, 6, 22, 0) var(--glow-spread3)           /* fade out */
+  );
+
+  pointer-events: none;
+}
+
+/* Content above glow */
+.footer-content {
+  position: relative;
+  z-index: 1;
+}
+
+.footer-logo {
+  width: 50px;
+  margin-bottom: 10px;
+}
+
+.footer p {
+  opacity: 0.7;
+  font-size: 0.8rem;
+  padding-top: 20px;
+}
+
+.socials {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  margin-top: 25px;
+}
+
+/* Circle buttons */
+.social {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+/* Icons */
+.social i {
+  font-size: 24px;
+  color: white;
+  transition: 0.3s;
+}
+
+/* Hover glow */
+.social:hover {
+  transform: translateY(-5px) scale(1.1);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
+}

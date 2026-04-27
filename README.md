@@ -1,8 +1,13 @@
 # Website
 
-Personal website with modern design and responsive.
+Personal modern and responsive website deployed on GitHub Pages.
 
-## Browsers
+## Tools
+
+- Vite
+- Fontawesome
+
+## Tested Browsers
 
 - [X] Firefox
 - [X] Safari
@@ -10,7 +15,3 @@ Personal website with modern design and responsive.
 - [X] Chrome
 - [ ] Brave
 - [ ] Opera
-
-## Inspiration
-
-Inspired by Facepunch Studios website design. https://facepunch.com

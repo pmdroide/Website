@@ -1,0 +1,156 @@
+.logo {
+  max-width: 50px;
+}
+
+.header {
+  position: fixed;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 360px;
+  background: transparent;
+  color: white;
+  z-index: 1000;
+  transition: 0.3s ease;
+  width: 100%;
+  height: 70px;
+}
+
+.header.scrolled {
+  background: #1c2230;
+  backdrop-filter: blur(10px);
+  box-shadow: 
+    0 10px 10px #1c2230,
+    0 20px 20px rgba(19, 23, 32, 0.7),
+    0 40px 40px rgba(19, 23, 32, 0.4),
+    0 70px 60px rgba(19, 23, 32, 0.2);
+}
+
+.nav {
+  display: flex;
+  gap: 30px;
+}
+
+.nav a {
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.nav i {
+  padding-right: 10px;
+}
+
+.nav a:hover {
+  color: #006cf0;
+}
+
+/* Burger icon */
+.burger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  cursor: pointer;
+  width: 40px;
+  height: 25px;
+  position: relative;
+  z-index: 1001; /* above overlay */
+}
+
+.burger span {
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background: white;
+  transition: 0.3s ease;
+}
+
+/* Top line */
+.burger span:nth-child(1) {
+  top: 6px;
+}
+
+/* Bottom line */
+.burger span:nth-child(2) {
+  bottom: 6px;
+}
+
+/* Turn into X */
+.burger.active span:nth-child(1) {
+  top: 50%;
+  transform: translateY(-50%) rotate(45deg);
+}
+
+.burger.active span:nth-child(2) {
+  bottom: auto;
+  top: 50%;
+  transform: translateY(-50%) rotate(-45deg);
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .nav {
+    position: fixed;
+    inset: 0;
+    
+    background: rgba(28, 34, 48, 0.95);
+    backdrop-filter: blur(10px);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.4s ease;
+
+    z-index: 999;
+  }
+
+  .nav a {
+    font-size: 1.5rem;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: 0.3s ease;
+  }
+
+  /* ACTIVE STATE */
+  .nav.active {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  /* Fade + pop items */
+  .nav.active a {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Stagger animation (important detail) */
+  .nav.active a:nth-child(1) { transition-delay: 0.1s; }
+  .nav.active a:nth-child(2) { transition-delay: 0.2s; }
+  .nav.active a:nth-child(3) { transition-delay: 0.3s; }
+  .nav.active a:nth-child(4) { transition-delay: 0.4s; }
+
+  .burger {
+    display: flex;
+  }
+
+  .header {
+    position: absolute;
+    padding: 15px 40px;
+  }
+
+  .footer::before {
+    --glow-spread2: 50%;
+    --glow-spread3: 100%; 
+  }
+}
+
+/* Stop background scroll */
+body.menu-open {
+  overflow: hidden;
+}
