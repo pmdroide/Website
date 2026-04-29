@@ -11,3 +11,15 @@ import './styles/carousel.css';
 import './scripts/webgl.js';  
 import './scripts/header.js';     
 import './scripts/animations.js'; 
+import Splide from '@splidejs/splide';
+import '@splidejs/splide/css';
+
+document.addEventListener('DOMContentLoaded', () => {
+  new Splide('#slider', {
+    type: 'loop',
+    drag: 'free',
+    snap: true,
+    autoplay: true,
+    perPage: 1,
+  }).mount();
+});

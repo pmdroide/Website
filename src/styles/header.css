@@ -1,5 +1,6 @@
 .logo {
   max-width: 50px;
+  padding-left: 15%;
 }
 
 .header {
@@ -7,7 +8,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 360px;
   background: transparent;
   color: white;
   z-index: 1000;
@@ -29,6 +29,7 @@
 .nav {
   display: flex;
   gap: 30px;
+  padding-right: 15%;
 }
 
 .nav a {

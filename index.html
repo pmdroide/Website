@@ -6,7 +6,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
-    <script src="./scripts/app.js" defer></script>
     <title>Welcome to my page!</title>
     <link rel="icon" href="./public/favicon.ico" type="image/x-icon">
 </head>
@@ -18,7 +17,7 @@
             <a href="#about"><i class="fa-brands fa-readme"></i>About</a>
             <a href="#skills"><i class="fa-solid fa-toolbox"></i>Skills</a>
             <a href="#projects"><i class="fa-solid fa-folder"></i>Projects</a>
-            <a href="#roadmap"><i class="fa-solid fa-map"></i>Roadmap</a>
+            <a href="./src/html/roadmap.html"><i class="fa-solid fa-map"></i>Roadmap</a>
         </nav>
 
         <div class="burger" id="burger">
@@ -72,47 +71,17 @@
     <section class="projects" id="projects">
         <h1>Projects</h1>
         <h2>See some of my projects I have developed along the years and others coming soon</h2>
-        <div class="carousel" mask>
-            <article>
-                <img src="./src/assets/carousel/project1.png" alt="project1">
-                <h2>RUA (Unity Game)</h2>
-                <div>
-                    <p>"Rua! - The Adult Game" is a project produced by Rato - ADCC as part of the Espaço 0f1c1n4. It is a digital experience that bridges the gap between a traditional board game and an online platform.
-                       Its primary goal is to raise awareness among young people transitioning into adulthood.</p>
-
-                    <a href="#">Read more</a>
-                </div>
-            </article>
-
-            <article>
-                <img src="./src/assets/carousel/project2.png" alt="project2">
-                <h2>Rato Event Website</h2>
-                <div>
-                    <p>Project made with Unity + WebGL, with pure HTML, CSS and JavaScript. This project was made with the purpose of promoting the organization Rato-ADCC. Developed in 2025.</p>
-
-                    <a href="#">Read more</a>
-                </div>
-            </article>
-
-            <article>
-                <img src="./src/assets/carousel/project3.png" alt="project3">
-                <h2>Internship Project</h2>
-                <div>
-                    <p>Unity Game developed for Rato-ADCC in 2024 to promote the organization.</p>
-
-                    <a href="#">Read more</a>
-                </div>
-            </article>
-
-            <article>
-                <img src="./src/assets/carousel/project4.png" alt="project4">
-                <h2>Roadmap</h2>
-                <div>
-                    <p>See what I am currently working on or learrning.</p>
-
-                    <a href="#">Read more</a>
-                </div>
-            </article>
+        <div id="slider" class="splide">
+            <div class="splide__track">
+                <ul class="splide__list">
+                    <li class="splide__slide"><img src="./src/assets/carousel/project1.png" alt="Project 1"></li>
+                    <li class="splide__slide"><img src="./src/assets/carousel/project2.png" alt="Project 2"></li>
+                    <li class="splide__slide"><img src="./src/assets/carousel/project3.png" alt="Project 3"></li>
+                </ul>
+            </div>
+            <div class="splide__progress">
+                <div class="splide__progress__bar"></div>
+            </div>
         </div>
     </section>
     <footer class="footer">

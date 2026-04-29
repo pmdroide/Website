@@ -6,6 +6,7 @@ Personal modern and responsive website deployed on GitHub Pages.
 
 - Vite
 - Fontawesome
+- SplideJS
 
 ## Tested Browsers
 
